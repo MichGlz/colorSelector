@@ -32,7 +32,7 @@ function transformHexToRgb(hr, hg, hb) {
   r = parseInt(`0x${hr}`, 16);
   g = parseInt(`0x${hg}`, 16);
   b = parseInt(`0x${hb}`, 16);
-  document.querySelector(".rgbcode").textContent = `RGB: (R:${r}, G:${g}, B:${b})`;
+  document.querySelector(".rgbcode").textContent = `RGB: ${r}, ${g}, ${b}`;
   // console.log({ r, g, b });
   transfomRgbToHsl(r, g, b);
 }
@@ -71,6 +71,6 @@ function transfomRgbToHsl(r, g, b) {
   // multiply s and l by 100 to get the value in percent, rather than [0,1]
   s *= 100;
   l *= 100;
-  document.querySelector(".hslcode").textContent = `HSL: (H:${Math.round(h)}, S:${Math.round(s)}%, L:${Math.round(l)}%)`;
+  document.querySelector(".hslcode").textContent = `HSL: ${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%`;
   // console.log("hsl(%f,%f%,%f%)", Math.round(h), Math.round(s), Math.round(l)); // just for testing
 }
