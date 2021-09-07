@@ -1,18 +1,20 @@
 "user strict";
-
+window.addEventListener("DOMContentLoaded", start);
 // const color = "#9f1e1e";
 
-const colorWheel = document.querySelector("#colorWheel");
-const box = document.querySelector(".box");
-colorWheel.addEventListener("input", pickColor);
+let box;
+
+function start() {
+  const colorWheel = document.querySelector("#colorWheel");
+  colorWheel.addEventListener("input", pickColor);
+  box = document.querySelector(".box");
+}
 // hexSeoaretColors(color);
 
 function pickColor() {
   const colorValue = this.value;
-  //   console.log(e);
-  // console.log(colorValue);
-  box.style.backgroundColor = colorValue;
-  document.querySelector(".hexcode").textContent = `HEX:  ${colorValue.toUpperCase()}`;
+  boxColor(colorValue);
+  showData(`hex`, `HEX:  ${colorValue.toUpperCase()}`);
   hexSeparedColors(colorValue);
 }
 
@@ -32,8 +34,8 @@ function transformHexToRgb(hr, hg, hb) {
   r = parseInt(`0x${hr}`, 16);
   g = parseInt(`0x${hg}`, 16);
   b = parseInt(`0x${hb}`, 16);
-  document.querySelector(".rgbcode").textContent = `RGB:  ${r}, ${g}, ${b}`;
-  // console.log({ r, g, b });
+
+  showData(`rgb`, `RGB:  ${r}, ${g}, ${b}`);
   transfomRgbToHsl(r, g, b);
 }
 
@@ -71,6 +73,58 @@ function transfomRgbToHsl(r, g, b) {
   // multiply s and l by 100 to get the value in percent, rather than [0,1]
   s *= 100;
   l *= 100;
-  document.querySelector(".hslcode").textContent = `HSL:  ${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%`;
-  // console.log("hsl(%f,%f%,%f%)", Math.round(h), Math.round(s), Math.round(l)); // just for testing
+  //round values
+  h = Math.round(h);
+  s = Math.round(s);
+  l = Math.round(l);
+
+  showData(`hsl`, `HSL:  ${h}, ${s}%, ${l}%`);
 }
+
+function showData(pClass, str) {
+  document.querySelector(`.${pClass}`).textContent = str;
+}
+
+function boxColor(newColor) {
+  box.style.backgroundColor = newColor;
+}
+
+// function randomColor() {
+//   // console.log("randomColor");
+//   let colorHex = "#";
+
+//   for (let i = 0; i < 3; i += 1) {
+//     let noColor = Math.floor(Math.random() * 255);
+//     hexC = noColor.toString(16);
+//     if (hexC.length < 2) {
+//       hexC += "0";
+//     }
+//     colorHex += hexC.toString(16);
+//     // console.log(colorHex);
+//   }
+//   colorWheel.value = colorHex;
+//   box.style.backgroundColor = colorHex;
+// }
+// randomBackground();
+
+// function randomBackground() {
+//   const rgbObject = randomNumber();
+
+//   const rgbCSS = rgbToCSS(rgbObject);
+
+//   document.querySelector("body").style.backgroundColor = rgbCSS;
+// }
+
+// function randomNumber() {
+//   let r = Math.floor(Math.random() * 255);
+//   let g = Math.floor(Math.random() * 255);
+//   let b = Math.floor(Math.random() * 255);
+
+//   return { r, g, b };
+// }
+
+// function rgbToCSS(rgb) {
+//   console.log("rgbToCSS");
+//   const rgbcss = `rgb( ${rgb.r}, ${rgb.g}, ${rgb.b})`;
+//   return rgbcss;
+// }
