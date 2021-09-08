@@ -1,12 +1,10 @@
 "user strict";
 window.addEventListener("DOMContentLoaded", start);
-// const color = "#9f1e1e";
 
 function start() {
   const colorWheel = document.querySelector("#colorWheel");
   colorWheel.addEventListener("input", pickColor);
 }
-// hexSeoaretColors(color);
 
 function pickColor() {
   const inputValue = this.value;
@@ -20,6 +18,7 @@ function showingColors(colorInput) {
 
   const rgbCSS = rgbToCSS(rgbObj);
   const hexFromRgb = rgbToHex(rgbObj);
+  const rgbFromHslObj = hslToRgb(hslObj);
 
   boxColor(`box`, rgbCSS);
   showData(`hex`, `HEX:  ${hexFromRgb.toUpperCase()}`);
@@ -39,10 +38,10 @@ function splitHexCode(hexValue) {
   }
 }
 
-function hexToRgb(obj) {
-  r = parseInt(`0x${obj.hexR}`, 16);
-  g = parseInt(`0x${obj.hexG}`, 16);
-  b = parseInt(`0x${obj.hexB}`, 16);
+function hexToRgb(hexObj) {
+  r = parseInt(`0x${hexObj.hexR}`, 16);
+  g = parseInt(`0x${hexObj.hexG}`, 16);
+  b = parseInt(`0x${hexObj.hexB}`, 16);
   return { r, g, b };
 }
 
@@ -88,23 +87,71 @@ function rgbToHsl(rgbObj) {
   return { h, s, l };
 }
 
-function rgbToCSS(rgb) {
-  const rgbcss = `rgb( ${rgb.r}, ${rgb.g}, ${rgb.b})`;
+function rgbToCSS(rgbObj) {
+  const rgbcss = `rgb( ${rgbObj.r}, ${rgbObj.g}, ${rgbObj.b})`;
   return rgbcss;
 }
 
-function rgbToHex(rgb) {
-  const rgbArray = [`${rgb.r}`, `${rgb.g}`, `${rgb.b}`];
-  let hexArray = ["#"];
+function rgbToHex(rgbObj) {
+  const rgbArray = [`${rgbObj.r}`, `${rgbObj.g}`, `${rgbObj.b}`];
+  let hexCode = "#";
   rgbArray.forEach((element) => {
     n = Number(element).toString(16);
     if (n.length < 2) {
       n += "0";
     }
-    hexArray.push(n);
+    hexCode += n;
   });
 
-  return hexArray.join("");
+  return hexCode;
+}
+
+function hslToRgb(hslObj) {
+  let h = hslObj.h;
+  let s = hslObj.s;
+  let l = hslObj.l;
+
+  // Must be fractions of 1
+  s /= 100;
+  l /= 100;
+
+  let c = (1 - Math.abs(2 * l - 1)) * s,
+    x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+    m = l - c / 2,
+    r = 0,
+    g = 0,
+    b = 0;
+  if (0 <= h && h < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (240 <= h && h < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else if (300 <= h && h < 360) {
+    r = c;
+    g = 0;
+    b = x;
+  }
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+
+  return { r, g, b };
+  // return "rgb(" + r + "," + g + "," + b + ")";
 }
 
 function showData(pClass, str) {
