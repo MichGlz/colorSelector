@@ -1,8 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: rgb(222, 225, 230);
+  font-family: "Roboto", sans-serif;
+  font-weight: bolder;
+  letter-spacing: 3px;
+  color: aliceblue;
 }
 
 header {
@@ -10,62 +16,125 @@ header {
   padding: 1rem 2rem;
   justify-content: space-between;
   align-items: center;
+  color: cadetblue;
 }
 
 main {
   width: 100%;
   height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: black;
 }
 
+.wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 900px;
+  max-height: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .colorsWrapper {
-  width: 40vw;
-  height: 40vw;
+  width: 40%;
+  height: 0;
+  padding-bottom: 40%;
   border-radius: 50%;
   position: relative;
-  box-shadow: 0 0 50px gainsboro;
+  box-shadow: 0 0 20px gainsboro;
 }
 
 .box {
   width: 50%;
   height: 50%;
   position: absolute;
+  border: solid 2px black;
+  cursor: pointer;
+  transition: transform 0.5s;
 }
 
-.color0 {
-  width: 40%;
-  height: 40%;
+.box:hover {
+  transform: scale(1.05);
+}
+
+.pWrapper {
+  position: absolute;
+  width: 120%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.color1 .pWrapper {
+  width: 140%;
+  left: -135%;
+}
+
+.box2 {
+  width: 10vw;
+  height: 10vw;
+  position: absolute;
+  top: 10px;
+  border: solid 2px black;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.color {
+  width: 20%;
+  height: 20%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
   background-color: rgb(119, 113, 35);
   border-radius: 50%;
+  /*box-shadow: 0 0 20px black;*/
   z-index: 2;
 }
-.color-2 {
+
+.color1 {
+  top: -60%;
+  left: 30%;
+  height: 40%;
+  width: 40%;
+  border-radius: 50%;
+}
+
+.color2 {
   top: 0;
   left: 0;
   border-radius: 100% 0 0 0;
   background-color: darkkhaki;
 }
-.color-1 {
+
+.color3 {
   top: 0;
   right: 0;
   border-radius: 0 100% 0 0;
   background-color: rgb(151, 147, 86);
 }
-.color1 {
+
+.color4 {
   bottom: 0;
   right: 0;
   border-radius: 0 0 100% 0;
   background-color: rgb(109, 106, 63);
 }
-.color2 {
+
+.color5 {
   bottom: 0;
   left: 0;
   border-radius: 0 0 0 100%;
   background-color: rgb(66, 64, 37);
+}
+
+:is(.color2, .color5) .pWrapper {
+  left: -115%;
+}
+
+:is(.color3, .color4) .pWrapper {
+  right: -135%;
 }

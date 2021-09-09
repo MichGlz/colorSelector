@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Pallet</title>
+    <link rel="stylesheet" href="interface.css" />
+  </head>
+  <body>
+    <header>
+      <div class="optionwrapper">
+        <label for="combinationOptions">Options</label>
+        <select name="combinationOptions" id="combinationOptions">
+          <option value="analogous">Analogous</option>
+          <option value="monochromatic">Monochromatic</option>
+          <option value="triad">Triad</option>
+          <option value="complementary">Complementary</option>
+          <option value="compound">Compound</option>
+          <option value="shades">Shades</option>
+        </select>
+      </div>
+
+      <label id="colorWheelLabel">
+        Pick a color
+        <input type="color" id="colorWheel" />
+      </label>
+      <button id="saveColor">Save color pallet</button>
+    </header>
+
+    <main>
+      <div class="wrapper">
+        <div class="colorsWrapper">
+          <div class="box2 color"></div>
+
+          <div class="box color1">
+            <div class="pWrapper">
+              <p class="hex">HEX:</p>
+              <p class="rgb">RGB:</p>
+              <p class="hsl">HSL:</p>
+            </div>
+          </div>
+          <div class="box color2">
+            <div class="pWrapper">
+              <p class="hex">HEX:</p>
+              <p class="rgb">RGB:</p>
+              <p class="hsl">HSL:</p>
+            </div>
+          </div>
+          <div class="box color3">
+            <div class="pWrapper">
+              <p class="hex">HEX:</p>
+              <p class="rgb">RGB:</p>
+              <p class="hsl">HSL:</p>
+            </div>
+          </div>
+          <div class="box color4">
+            <div class="pWrapper">
+              <p class="hex">HEX:</p>
+              <p class="rgb">RGB:</p>
+              <p class="hsl">HSL:</p>
+            </div>
+          </div>
+          <div class="box color5">
+            <div class="pWrapper">
+              <p class="hex">HEX:</p>
+              <p class="rgb">RGB:</p>
+              <p class="hsl">HSL:</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+    <script src="interface.js"></script>
+  </body>
+</html>
