@@ -66,7 +66,7 @@ function showingColors(colorInput) {
   const colorObjArray = doColorObjArray(hslObjArray);
 
   //diplay color in the centered circle
-  boxColor(`color`, rgbCSS);
+  changeBackgroundColor(`color`, rgbCSS);
 
   //display color and values from the color objects array in the DOM
   displayColorObject(colorObjArray);
@@ -207,7 +207,7 @@ function hslToRgb(hslObj) {
 }
 
 //select a element by class and changes its background-color
-function boxColor(boxClass, newColor) {
+function changeBackgroundColor(boxClass, newColor) {
   document.querySelector(`.${boxClass}`).style.backgroundColor = newColor;
 }
 
