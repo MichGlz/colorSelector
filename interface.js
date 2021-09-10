@@ -213,23 +213,24 @@ function changeBackgroundColor(boxClass, newColor) {
 
 //select the harmony and call the function of the harmony
 function selectHarmony(hslObj) {
-  if (selectOption.value === "analogous") {
-    return analogous(hslObj);
-  }
-  if (selectOption.value === "monochromatic") {
-    return monochromatic(hslObj);
-  }
-  if (selectOption.value === "triad") {
-    return triad(hslObj);
-  }
-  if (selectOption.value === "complementary") {
-    return complementary(hslObj);
-  }
-  if (selectOption.value === "compound") {
-    return compound(hslObj);
-  }
-  if (selectOption.value === "shades") {
-    return shades(hslObj);
+  switch (selectOption.value) {
+    case "analogous":
+      return analogous(hslObj);
+
+    case "monochromatic":
+      return monochromatic(hslObj);
+
+    case "triad":
+      return triad(hslObj);
+
+    case "complementary":
+      return complementary(hslObj);
+
+    case "compound":
+      return compound(hslObj);
+
+    case "shades":
+      return shades(hslObj);
   }
 }
 
@@ -406,12 +407,11 @@ function doColorObjArray(hslObjArray) {
 
 //displays the diferents values of a color object in tu the DOM
 function displayColorObject(colorObjArray) {
-  let i = 1;
-  colorObjArray.forEach((Obj) => {
-    document.querySelector(`.color${i}`).style.backgroundColor = Obj.rgbCSS;
-    document.querySelector(`.color${i} .hex`).textContent = Obj.hexStr;
-    document.querySelector(`.color${i} .rgb`).textContent = Obj.rgbStr;
-    document.querySelector(`.color${i} .hsl`).textContent = Obj.hslStr;
-    i += 1;
+  colorObjArray.forEach((Obj, i) => {
+    const n = i + 1;
+    document.querySelector(`.color${n}`).style.backgroundColor = Obj.rgbCSS;
+    document.querySelector(`.color${n} .hex`).textContent = Obj.hexStr;
+    document.querySelector(`.color${n} .rgb`).textContent = Obj.rgbStr;
+    document.querySelector(`.color${n} .hsl`).textContent = Obj.hslStr;
   });
 }
