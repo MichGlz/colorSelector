@@ -263,8 +263,8 @@ function monochromatic(hslObj) {
   let hslObjArray = [hslObj];
   let sArray = [orgS - 15, orgS + 15, orgS, orgS];
   let lArray = [orgL, orgL, orgL - 15, orgL + 15];
-  let i = 0;
-  sArray.forEach((s) => {
+
+  sArray.forEach((s, i) => {
     s = sArray[i];
     if (s > 100) {
       s = 100;
@@ -281,7 +281,6 @@ function monochromatic(hslObj) {
     }
     const newObj = { h, s, l };
     hslObjArray.push(newObj);
-    i += 1;
   });
   return hslObjArray;
 }
@@ -292,9 +291,10 @@ function triad(hslObj) {
   const orgS = hslObj.s;
   const l = hslObj.l;
   let hslObjArray = [hslObj];
-  let i = 0;
+
   let hArray = [orgH - 60, orgH - 60, orgH + 60, orgH + 60];
-  hArray.forEach((h) => {
+  hArray.forEach((h, i) => {
+    i = Number(i);
     if (h > 360) {
       h -= 360;
     }
@@ -305,12 +305,11 @@ function triad(hslObj) {
     if (i === 1 || i === 3) {
       s += 40;
       if (s > 100) {
-        s = 100;
+        s -= 80;
       }
     }
     const newObj = { h, s, l };
     hslObjArray.push(newObj);
-    i++;
   });
 
   return hslObjArray;
@@ -323,8 +322,9 @@ function complementary(hslObj) {
   const l = hslObj.l;
   let hslObjArray = [hslObj];
   let hArray = [orgH + 180, orgH + 10, orgH + 180, orgH];
-  let i = 0;
-  hArray.forEach((h) => {
+
+  hArray.forEach((h, i) => {
+    i = Number(i);
     let s = orgS;
     if (h > 360) {
       h -= 360;
@@ -333,15 +333,14 @@ function complementary(hslObj) {
       h += 360;
     }
     if (i > 0) {
-      s -= i * 10;
+      s -= i * 15;
     }
     if (s < 0) {
-      s = 0;
+      s += 80;
     }
 
     const newObj = { h, s, l };
     hslObjArray.push(newObj);
-    i++;
   });
 
   return hslObjArray;

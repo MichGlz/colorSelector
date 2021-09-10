@@ -45,7 +45,7 @@ main {
   padding-bottom: 40%;
   border-radius: 50%;
   position: relative;
-  box-shadow: 0 0 20px gainsboro;
+  box-shadow: 0 0 100px gainsboro;
 }
 
 .box {
