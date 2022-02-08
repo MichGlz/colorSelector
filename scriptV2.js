@@ -270,6 +270,7 @@ function coloringBox() {
   const rgbColor = HSVtoRGB(pickedColor);
   const rgbColorCSS = rgbToCSS(rgbColor);
   box.style.backgroundColor = rgbColorCSS;
+  document.querySelector(".light").style.backgroundColor = rgbColorCSS;
 }
 
 function settingSandL(e) {
