@@ -161,3 +161,154 @@ function showData(pClass, str) {
 function boxColor(boxClass, newColor) {
   document.querySelector(`.${boxClass}`).style.backgroundColor = newColor;
 }
+
+function HSVtoRGB(pickedColor) {
+  let r, g, b, i, f, p, q, t;
+  const s = pickedColor.s / 100;
+  const v = pickedColor.v / 100;
+  const h = pickedColor.h / 360;
+
+  i = Math.floor(h * 6);
+  f = h * 6 - i;
+  p = v * (1 - s);
+  q = v * (1 - f * s);
+  t = v * (1 - (1 - f) * s);
+  switch (i % 6) {
+    case 0:
+      (r = v), (g = t), (b = p);
+      break;
+    case 1:
+      (r = q), (g = v), (b = p);
+      break;
+    case 2:
+      (r = p), (g = v), (b = t);
+      break;
+    case 3:
+      (r = p), (g = q), (b = v);
+      break;
+    case 4:
+      (r = t), (g = p), (b = v);
+      break;
+    case 5:
+      (r = v), (g = p), (b = q);
+      break;
+  }
+  return {
+    r: Math.round(r * 255),
+    g: Math.round(g * 255),
+    b: Math.round(b * 255),
+  };
+}
+
+let isSelectingSV = false;
+let isSelectingHue = false;
+
+const mySquare = document.querySelector(".mydiv");
+const hueBar = document.querySelector("#my-bar-container");
+const circleIndicator = mySquare.querySelector(".pointer-cursor");
+const barIndicator = hueBar.querySelector(".bar-cursor");
+const box = document.querySelector(".box");
+const barHeight = hueBar.getBoundingClientRect().height;
+const pickedColor = {
+  h: 0,
+  s: 97,
+  v: 97,
+};
+
+hueBar.addEventListener("mousedown", (e) => {
+  pickedColor.h = Math.floor((e.offsetY * 360) / barHeight);
+  coloringBox();
+  barIndicator.style.top = e.offsetY + "px";
+  isSelectingHue = true;
+});
+
+hueBar.addEventListener("mousemove", (e) => {
+  if (isSelectingHue === true) {
+    pickedColor.h = Math.floor((e.offsetY * 360) / barHeight);
+    coloringBox();
+    barIndicator.style.top = e.offsetY + "px";
+    hueBar.style.cursor = "none";
+  }
+});
+
+hueBar.addEventListener("mouseup", (e) => {
+  if (isSelectingHue === true) {
+    isSelectingHue = false;
+    hueBar.style.cursor = "pointer";
+  }
+});
+
+mySquare.addEventListener("mousedown", (e) => {
+  settingSandL(e);
+  coloringBox();
+  isSelectingSV = true;
+});
+
+mySquare.addEventListener("mousemove", (e) => {
+  if (isSelectingSV === true) {
+    coloringBox();
+    settingSandL(e);
+    mySquare.style.cursor = "none";
+  }
+});
+
+mySquare.addEventListener("mouseup", (e) => {
+  if (isSelectingSV === true) {
+    mySquare.style.cursor = "pointer";
+    isSelectingSV = false;
+  }
+});
+
+function myBarValue() {
+  const rgbColor = hslToRgb({ h: pickedColor.h, s: 100, l: 50 });
+  const rgbCSS = rgbToCSS(rgbColor);
+  mySquare.style.setProperty("--colorHue", rgbCSS);
+}
+
+function coloringBox() {
+  myBarValue();
+  const rgbColor = HSVtoRGB(pickedColor);
+  const rgbColorCSS = rgbToCSS(rgbColor);
+  box.style.backgroundColor = rgbColorCSS;
+}
+
+function settingSandL(e) {
+  pickedColor.s = Math.floor(e.offsetX / 2);
+  pickedColor.v = Math.floor(100 - e.offsetY / 2);
+  circleIndicator.style.left = e.offsetX + "px";
+  circleIndicator.style.top = e.offsetY + "px";
+}
+
+//-----------color wheel------------------
+const boxColorWheel = document.querySelector(".box-colorwheel");
+let isWheelHue = false;
+
+boxColorWheel.addEventListener("mousedown", (e) => {
+  isWheelHue = true;
+});
+
+boxColorWheel.addEventListener("mouseup", () => {
+  isWheelHue = false;
+});
+
+boxColorWheel.addEventListener("mousemove", (e) => {
+  if (isWheelHue === true) {
+    hueRotate(e);
+    boxColorWheel.style.cursor = "pointer";
+  }
+});
+
+function hueRotate(e) {
+  const wheel = document.querySelector(".center");
+  const windowY = window.scrollY;
+  let x = wheel.getBoundingClientRect().left + wheel.clientWidth / 2;
+  let y = wheel.getBoundingClientRect().top + windowY + wheel.clientHeight / 2;
+  let radian = Math.atan2(e.pageX - x, e.pageY - y);
+  let rotation = radian * (180 / Math.PI) * -1 + 180;
+  wheel.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+  pickedColor.h = Math.floor(225 - rotation);
+  if (pickedColor.h < 0) {
+    pickedColor.h = pickedColor.h + 360;
+  }
+  coloringBox();
+}

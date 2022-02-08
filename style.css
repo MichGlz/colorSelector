@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-
+:root {
+  --colorHue: red;
+  --color-white: white;
+}
 body {
   margin: 0;
   padding: 0;
@@ -42,4 +45,155 @@ main {
 
 p {
   margin-top: 2rem;
+}
+
+#my-picker-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.mydiv {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(to right, white, var(--colorHue));
+  background: linear-gradient(90deg, white, var(--colorHue));
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pointer-cursor {
+  position: absolute;
+  z-index: 1;
+  top: 6px;
+  left: 194px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: solid 2px var(--color-white);
+  box-shadow: 0 0 0 1px black;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.mydiv::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to bottom, rgb(0, 0, 0, 0), black);
+}
+
+#my-bar-container {
+  cursor: pointer;
+  position: relative;
+  width: 2rem;
+  height: 200px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 128, 0, 1) 8.33%,
+    rgba(255, 255, 0, 1) 16.66%,
+    rgba(128, 255, 0, 1) 24.99%,
+    rgba(0, 255, 0, 1) 33.33%,
+    rgba(0, 255, 128, 1) 41.66%,
+    rgba(0, 255, 255, 1) 50%,
+    rgba(0, 128, 255, 1) 58.33%,
+    rgba(0, 0, 255, 1) 66.66%,
+    rgba(128, 0, 255, 1) 74.99%,
+    rgba(255, 0, 255, 1) 83.33%,
+    rgba(255, 0, 128, 1) 91.66%,
+    rgba(255, 0, 0, 1) 100%
+  );
+}
+
+.bar-cursor {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: -10%;
+  width: 110%;
+  height: 5px;
+  border-radius: 5px;
+  border: solid 2px var(--color-white);
+  box-shadow: 0 0 0 1px black;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* #mybar {
+  position: relative;
+  transform: rotate(90deg);
+  width: 200px;
+  height: 2rem;
+} */
+
+/* #mybar::-webkit-slider-runnable-track {
+  height: 2rem;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 128, 0, 1) 8.33%,
+    rgba(255, 255, 0, 1) 16.66%,
+    rgba(128, 255, 0, 1) 24.99%,
+    rgba(0, 255, 0, 1) 33.33%,
+    rgba(0, 255, 128, 1) 41.66%,
+    rgba(0, 255, 255, 1) 50%,
+    rgba(0, 128, 255, 1) 58.33%,
+    rgba(0, 0, 255, 1) 66.66%,
+    rgba(128, 0, 255, 1) 74.99%,
+    rgba(255, 0, 255, 1) 83.33%,
+    rgba(255, 0, 128, 1) 91.66%,
+    rgba(255, 0, 0, 1) 100%
+  );
+}
+
+#mybar::-webkit-slider-thumb {
+  opacity: 0;
+}
+
+.mybar::before {
+  content: "";
+  position: absolute;
+} */
+
+.box-colorwheel {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 100px;
+}
+.colorwheel {
+  background: conic-gradient(blue, aqua, lime, yellow, red, magenta, blue);
+  border-radius: 50%;
+}
+
+.center {
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.fallback {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
 }
