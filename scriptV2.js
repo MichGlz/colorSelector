@@ -270,7 +270,7 @@ function coloringBox() {
   const rgbColor = HSVtoRGB(pickedColor);
   const rgbColorCSS = rgbToCSS(rgbColor);
   box.style.backgroundColor = rgbColorCSS;
-  document.querySelector(".light").style.backgroundColor = rgbColorCSS;
+  document.querySelector(":root").style.setProperty("--control-color", rgbColorCSS);
 }
 
 function settingSandL(e) {
@@ -286,10 +286,12 @@ let isWheelHue = false;
 
 boxColorWheel.addEventListener("mousedown", (e) => {
   isWheelHue = true;
+  document.querySelector(".light").classList.add("turn_on");
 });
 
 boxColorWheel.addEventListener("mouseup", () => {
   isWheelHue = false;
+  document.querySelector(".light.turn_on").classList.remove("turn_on");
 });
 
 boxColorWheel.addEventListener("mousemove", (e) => {
